@@ -8,7 +8,6 @@ import { Server } from '@overnightjs/core';
 import { ForecastController } from '@src/controllers/forecast';
 
 export class SetupServer extends Server {
-
   constructor(private port = 3000) {
     super();
   }
@@ -23,9 +22,7 @@ export class SetupServer extends Server {
   }
 
   private setupControllers(): void {
-    this.addControllers([
-      new ForecastController()
-    ]);
+    this.addControllers([new ForecastController()]);
   }
 
   public getApp(): Application {

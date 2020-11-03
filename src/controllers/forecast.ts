@@ -3,7 +3,6 @@ import { Request, Response } from 'express';
 
 @Controller('forecast')
 export class ForecastController {
-
   @Get('')
   public get(_: Request, res: Response): void {
     res.send({ message: 'ok' });
