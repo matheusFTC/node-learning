@@ -1,3 +1,10 @@
-console.log(
-  'Curso Do Zero a Produção: Aprenda a Construir uma API Node.js com TypeScript'
-);
+import { SetupServer } from './server';
+import config from 'config';
+
+(async (): Promise<void> => {
+  const server = new SetupServer(config.get('App.port'));
+
+  await server.init();
+
+  server.start();
+})();
