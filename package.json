@@ -13,7 +13,8 @@
     "style:fix": "prettier --write 'src/**/*.ts' 'test/**/*.ts'",
     "test": "yarn test:unit && yarn test:functional",
     "test:unit": "jest",
-    "test:functional": "jest --projects ./test --runInBand"
+    "test:functional": "jest --projects ./test --runInBand",
+    "validate": "yarn lint && yarn style && yarn test"
   },
   "repository": {
     "type": "git",
@@ -62,7 +63,7 @@
   },
   "husky": {
     "hooks": {
-      "pre-push": "yarn lint && yarn style && yarn test"
+      "pre-push": "npm run validate"
     }
   }
 }
