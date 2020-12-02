@@ -36,6 +36,7 @@ describe('Beach functional tests', () => {
 
       expect(status).toBe(422);
       expect(body).toEqual({
+        code: 422,
         error:
           'Beach validation failed: lat: Cast to Number failed for value "invalid_string" at path "lat"',
       });
