@@ -1,5 +1,3 @@
-import mongoose from 'mongoose';
-
 import { Controller, Post } from '@overnightjs/core';
 import { Request, Response } from 'express';
 
