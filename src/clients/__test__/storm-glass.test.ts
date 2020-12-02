@@ -8,7 +8,9 @@ import stormglassNormalizedResponse3HoursFixture from '@test/fixtures/stormglass
 jest.mock('@src/util/request');
 
 describe('StormGlass client', () => {
-  const mokedRequestClass = HTTPUtil.Request as jest.Mocked<typeof HTTPUtil.Request>;
+  const mokedRequestClass = HTTPUtil.Request as jest.Mocked<
+    typeof HTTPUtil.Request
+  >;
   const mokedRequest = new HTTPUtil.Request() as jest.Mocked<HTTPUtil.Request>;
 
   it('should return the normalized forecast from the StormGlass service', async () => {

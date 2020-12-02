@@ -88,7 +88,9 @@ describe('Forecast service', () => {
     ];
 
     const forecastService = new ForecastService(mockedStormGlassService);
-    const beachesWithRating = await forecastService.processForecastForBeaches(beaches);
+    const beachesWithRating = await forecastService.processForecastForBeaches(
+      beaches
+    );
 
     expect(beachesWithRating).toEqual(expectedResponse);
   });
@@ -116,8 +118,8 @@ describe('Forecast service', () => {
 
     const forecastService = new ForecastService(mockedStormGlassService);
 
-    await expect(forecastService.processForecastForBeaches(beaches)).rejects.toThrow(
-      ForecastProcessingInternalError
-    );
+    await expect(
+      forecastService.processForecastForBeaches(beaches)
+    ).rejects.toThrow(ForecastProcessingInternalError);
   });
 });

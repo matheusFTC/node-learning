@@ -9,7 +9,7 @@
     "start:dev": "ts-node-dev 'src/index.ts'",
     "lint": "eslint ./src ./test --ext .ts",
     "lint:fix": "eslint ./src ./test --ext .ts --fix",
-    "style:check": "prettier --check 'src/**/*.ts' 'test/**/*.ts'",
+    "style": "prettier --check 'src/**/*.ts' 'test/**/*.ts'",
     "style:fix": "prettier --write 'src/**/*.ts' 'test/**/*.ts'",
     "test": "yarn test:unit && yarn test:functional",
     "test:unit": "jest",
@@ -62,7 +62,7 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "yarn lint:fix && yarn style:fix && yarn test"
+      "pre-push": "yarn lint && yarn style && yarn test"
     }
   }
 }

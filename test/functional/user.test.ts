@@ -33,7 +33,8 @@ describe('User functional tests', () => {
 
       expect(status).toBe(422);
       expect(body).toEqual({
-        code: 422, error: 'User validation failed: name: Path `name` is required.',
+        code: 422,
+        error: 'User validation failed: name: Path `name` is required.',
       });
     });
 
@@ -45,9 +46,7 @@ describe('User functional tests', () => {
       };
 
       // Create new user
-      await global.request
-        .post('/users')
-        .send(newUser);
+      await global.request.post('/users').send(newUser);
 
       // Create the same user again
       const { status, body } = await global.request
@@ -56,7 +55,8 @@ describe('User functional tests', () => {
 
       expect(status).toBe(409);
       expect(body).toEqual({
-        code: 409, error: 'User validation failed: email: already exists in the database.',
+        code: 409,
+        error: 'User validation failed: email: already exists in the database.',
       });
     });
   });
