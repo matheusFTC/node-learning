@@ -1,5 +1,7 @@
 import { User } from '@src/models/user';
 
+import AuthService from '@src/services/auth';
+
 describe('User functional tests', () => {
   beforeEach(async () => {
     await User.deleteMany({});
@@ -18,7 +20,17 @@ describe('User functional tests', () => {
         .send(newUser);
 
       expect(status).toBe(201);
-      expect(body).toEqual(expect.objectContaining(newUser));
+
+      await expect(
+        AuthService.comparePasswords(newUser.password, body.password)
+      ).resolves.toBeTruthy();
+
+      expect(body).toEqual(
+        expect.objectContaining({
+          ...newUser,
+          ...{ password: expect.any(String) },
+        })
+      );
     });
 
     it('should throw 422 when there is a validation error', async () => {
