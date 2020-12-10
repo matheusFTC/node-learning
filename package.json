@@ -14,7 +14,7 @@
     "test": "yarn test:unit && yarn test:functional",
     "test:unit": "jest",
     "test:functional": "jest --projects ./test --runInBand",
-    "validate": "yarn lint && yarn style && yarn test"
+    "validate": "yarn lint:fix && yarn style:fix && yarn test"
   },
   "repository": {
     "type": "git",

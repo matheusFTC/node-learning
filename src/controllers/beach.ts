@@ -1,15 +1,22 @@
-import { Controller, Post } from '@overnightjs/core';
+import { ClassMiddleware, Controller, Post } from '@overnightjs/core';
 import { Request, Response } from 'express';
 
 import { BaseController } from '.';
-import { Beach } from '../models/beach';
+
+import { Beach } from '@src/models/beach';
+import { authMiddleware } from '@src/middlewares/auth';
 
 @Controller('beaches')
+@ClassMiddleware(authMiddleware)
 export class BeachController extends BaseController {
   @Post()
   public async create(req: Request, res: Response): Promise<void> {
     try {
-      const beach = new Beach(req.body);
+      const data = {
+        ...req.body,
+        user: req.decoded?.id,
+      };
+      const beach = new Beach(data);
       const result = await beach.save();
       res.status(201).send(result);
     } catch (error) {
