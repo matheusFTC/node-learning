@@ -3,7 +3,9 @@ name: MFTC Surf Forecast Workflow
 on: ['push']
 
 jobs:
+
   build:
+
     runs-on: ubuntu-latest
 
     strategy:
@@ -23,7 +25,7 @@ jobs:
     - name: Start MongoDB
       uses: supercharge/mongodb-github-action@1.1.0
       with:
-        node-version: ${{ mongodb-version }}
+        mongodb-version: ${{ matrix.mongodb-version }}
 
     - name: Install dependencies
       run: yarn --frozen-lockfile
