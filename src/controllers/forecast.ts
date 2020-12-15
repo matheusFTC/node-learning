@@ -5,6 +5,8 @@ import { ForecastService } from '@src/services/forecast';
 import { Beach } from '@src/models/beach';
 import { authMiddleware } from '@src/middlewares/auth';
 
+import logger from '@src/logger';
+
 @Controller('forecast')
 @ClassMiddleware(authMiddleware)
 export class ForecastController {
@@ -19,6 +21,8 @@ export class ForecastController {
       );
       res.status(200).send(forecast);
     } catch (error) {
+      logger.error(error);
+
       res.status(500).send({ error: 'Something went wrong' });
     }
   }

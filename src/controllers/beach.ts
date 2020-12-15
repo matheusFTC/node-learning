@@ -6,6 +6,8 @@ import { BaseController } from '.';
 import { Beach } from '@src/models/beach';
 import { authMiddleware } from '@src/middlewares/auth';
 
+import logger from '@src/logger';
+
 @Controller('beaches')
 @ClassMiddleware(authMiddleware)
 export class BeachController extends BaseController {
@@ -20,6 +22,8 @@ export class BeachController extends BaseController {
       const result = await beach.save();
       res.status(201).send(result);
     } catch (error) {
+      logger.error(error);
+
       this.sendCreateUpdateErrorResponse(res, error);
     }
   }

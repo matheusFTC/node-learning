@@ -11,6 +11,8 @@ import { ForecastController } from '@src/controllers/forecast';
 import { BeachController } from '@src/controllers/beach';
 import { UserController } from './controllers/user';
 
+import logger from './logger';
+
 export class SetupServer extends Server {
   constructor(private port = 3000) {
     super();
@@ -49,7 +51,7 @@ export class SetupServer extends Server {
 
   public start(): void {
     this.app.listen(this.port, () => {
-      console.info('Server listening on port:', this.port);
+      logger.info(`Server listening on port: ${this.port}`);
     });
   }
 }
