@@ -2,6 +2,7 @@ import { Controller, Post } from '@overnightjs/core';
 import { Request, Response } from 'express';
 
 import { BaseController } from '.';
+
 import { User } from '@src/models/user';
 
 import AuthService from '@src/services/auth';
@@ -26,16 +27,16 @@ export class UserController extends BaseController {
     const user = await User.findOne({ email });
 
     if (!user) {
-      return res.status(401).send({
+      return this.sendErrorResponse(res, {
         code: 401,
-        error: 'User not found!',
+        message: 'User not found!',
       });
     }
 
     if (!(await AuthService.comparePasswords(password, user.password))) {
-      return res.status(401).send({
+      return this.sendErrorResponse(res, {
         code: 401,
-        error: 'Password does not match!',
+        message: 'Password does not match!',
       });
     }
 

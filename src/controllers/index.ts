@@ -3,7 +3,7 @@ import mongoose from 'mongoose';
 import { Response } from 'express';
 
 import { CUSTOM_VALIDATION } from '@src/models/user';
-
+import ApiError, { APIError } from '@src/util/errors/api-error';
 import logger from '@src/logger';
 
 export abstract class BaseController {
@@ -11,16 +11,23 @@ export abstract class BaseController {
     res: Response,
     error: mongoose.Error.ValidationError | Error
   ): void {
+    let code;
+    let message;
+
     if (error instanceof mongoose.Error.ValidationError) {
       const clientErrors = this.handleClientErrors(error);
-      res
-        .status(clientErrors.code)
-        .send({ code: clientErrors.code, error: clientErrors.error });
+      logger.error(clientErrors.error);
+      code = clientErrors.code;
+      message = clientErrors.error;
     } else {
       logger.error(error);
-
-      res.status(500).send({ code: 500, error: 'Something went wrong!' });
+      code = 500;
+      message = 'Something went wrong';
     }
+
+    const apiError: APIError = { code, message };
+
+    res.status(apiError.code).send(ApiError.format(apiError));
   }
 
   private handleClientErrors(
@@ -33,5 +40,22 @@ export abstract class BaseController {
       return { code: 409, error: error.message };
     }
     return { code: 422, error: error.message };
+  }
+
+  protected sendErrorResponse(
+    res: Response,
+    apiError: APIError,
+    error?: mongoose.Error.ValidationError | Error
+  ): Response {
+    if (error) {
+      if (error instanceof mongoose.Error.ValidationError) {
+        const clientErrors = this.handleClientErrors(error);
+        logger.error(clientErrors.error);
+      } else {
+        logger.error(error);
+      }
+    }
+
+    return res.status(apiError.code).send(ApiError.format(apiError));
   }
 }
