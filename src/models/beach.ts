@@ -1,18 +1,13 @@
 import mongoose, { Document, Model, Schema } from 'mongoose';
 
-export enum BeachPosition {
-  NORTH = 'N',
-  EAST = 'E',
-  SOUTH = 'S',
-  WEST = 'W',
-}
+import { GeoPosition } from './enums/geo-position';
 
 export interface Beach {
   _id?: string;
   lat: number;
   lng: number;
   name: string;
-  position: BeachPosition;
+  position: GeoPosition;
   user: string;
 }
 
@@ -24,10 +19,10 @@ const schema = new mongoose.Schema(
     position: {
       type: String,
       enum: [
-        BeachPosition.NORTH,
-        BeachPosition.EAST,
-        BeachPosition.SOUTH,
-        BeachPosition.WEST,
+        GeoPosition.NORTH,
+        GeoPosition.EAST,
+        GeoPosition.SOUTH,
+        GeoPosition.WEST,
       ],
       required: true,
     },

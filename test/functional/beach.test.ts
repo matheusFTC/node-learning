@@ -1,4 +1,5 @@
-import { Beach, BeachPosition } from '@src/models/beach';
+import { Beach } from '@src/models/beach';
+import { GeoPosition } from '@src/models/enums/geo-position';
 import { User } from '@src/models/user';
 
 import AuthService from '@src/services/auth';
@@ -27,7 +28,7 @@ describe('Beach functional tests', () => {
         lat: -33.792726,
         lng: 151.289824,
         name: 'Manly',
-        position: BeachPosition.EAST,
+        position: GeoPosition.EAST,
       };
 
       const { status, body } = await global.request
@@ -44,7 +45,7 @@ describe('Beach functional tests', () => {
         lat: 'invalid_string',
         lng: 151.289824,
         name: 'Manly',
-        position: BeachPosition.EAST,
+        position: GeoPosition.EAST,
       };
 
       const { status, body } = await global.request
