@@ -42,9 +42,9 @@ describe('Beach forecast function tests', () => {
       .query({
         lat: '-33.792726',
         lng: '151.289824',
-        params:
-          'swellDirection%2CswellHeight%2CswellPeriod%2CwaveDirection%2CwaveHeight%2CwindDirection%2CwindSpeed',
+        params: /(.*)/,
         source: 'noaa',
+        end: /(.*)/,
       })
       .reply(200, stormglassWeather3HoursFixture);
 
